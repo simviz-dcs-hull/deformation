@@ -50,6 +50,9 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/inc)
 # 2. BOOST
 FIND_PACKAGE(Boost ${BOOST_MINIMUM_VERSION} REQUIRED)
 
+# 3. Bullet
+FIND_PACKAGE(Bullet REQUIRED)
+
 INCLUDE(SetupCompilerPost)
 
 # traverse these sub dirs

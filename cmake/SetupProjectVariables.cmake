@@ -46,9 +46,6 @@ IF(WIN32 OR WIN64)
   STRING(TOLOWER ${CMAKE_PROJECT_NAME} PREFIX)
   SET(CMAKE_INSTALL_PREFIX "C:/Tools/${PREFIX}")
 
-  # AntTweakBar
-  SET(ATB_ROOT_DIR "C:/Tools/anttweakbar/1.16")
-
   # Boost
   SET(BOOST_ROOT "C:/Tools/boost/1.54.0")
   IF(WIN64)
@@ -60,6 +57,9 @@ IF(WIN32 OR WIN64)
     UNSET(BOOST_LIBRARYDIR)
   ENDIF()
 
+  # Bullet
+  SET(BULLET_ROOT "C:/Tools/bullet/2.81")
+
 ENDIF()
 
 IF(TRUE OR VERBOSE)
@@ -67,5 +67,6 @@ IF(TRUE OR VERBOSE)
     "   ARCH                  = ${ARCH}\n"
     "   CMAKE_INSTALL_PREFIX  = ${CMAKE_INSTALL_PREFIX}\n"
     "   BOOST_MINIMUM_VERSION = ${BOOST_MINIMUM_VERSION}\n"
-    "   BOOST_ROOT            = ${BOOST_ROOT}\n")
+    "   BOOST_ROOT            = ${BOOST_ROOT}\n"
+    "   BULLET_ROOT           = ${BULLET_ROOT}")
 ENDIF()
