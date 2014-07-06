@@ -18,7 +18,7 @@
 
 // includes, system
 
-// #include <>
+#include <iostream> // std::cout
 
 // includes, project
 
@@ -34,6 +34,12 @@ namespace {
   
   // functions, internal
 
+  void
+  tick_cb(btDynamicsWorld* world, btScalar delta_t)
+  {
+    std::cout << "world @" << world->getWorldUserInfo() << " ticked by " << delta_t << "s\n";
+  }
+  
 } // namespace {
 
 namespace bullet {
@@ -53,13 +59,18 @@ namespace bullet {
                                                         solver_.get(),
                                                         collision_config_.get()))
   {
-    world_->setGravity(btVector3(0, -9.81, 0));
+    world_->setInternalTickCallback(&tick_cb, static_cast<void*>(this));
+    world_->setGravity             (btVector3(0, -9.81, 0));
   }
 
   void
-  world::simulate(float a, unsigned b)
+  world::simulate(float a, unsigned b, float c)
   {
-    world_->stepSimulation(a, b);
+    while (a >= (b * c)) {
+      ++b;
+    }
+    
+    world_->stepSimulation(a, b, c);
   }
   
   void

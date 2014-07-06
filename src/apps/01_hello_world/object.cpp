@@ -84,9 +84,11 @@ namespace bullet {
   void
   object::update()
   {
-    body_->getMotionState()->getWorldTransform(xform_);
+    if (body_) {
+      body_->getMotionState()->getWorldTransform(xform_);
+    }
   }
-
+  
   std::ostream&
   operator<<(std::ostream& os, object const& a)
   {

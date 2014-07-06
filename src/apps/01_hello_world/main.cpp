@@ -39,9 +39,9 @@ namespace {
 int
 main()
 {
-  bullet::world  world;
+  bullet::world world;
 
-  std::array<bullet::object, 3> object_list = {
+  std::array<bullet::object, 4> object_list = {
     {
       bullet::object(world,
                      new btStaticPlaneShape(btVector3(0, 1, 0), 1),
@@ -55,17 +55,19 @@ main()
                      new btSphereShape(1),
                      2.0f,
                      btTransform(btQuaternion(0, 1, 0, 1), btVector3(10, 30, 0))),
+      bullet::object(world,
+                     nullptr),
     }
   };
   
-  for (unsigned i(0); i < 300; ++i) {
-    world.simulate(1/60.f, 100);
+  for (unsigned i(0); i < 100; ++i) {
+    world.simulate(1/100.f, 11, 1/1000.f);
 
     for (auto& o : object_list) {
       o.update();
+
+      std::cout << std::setfill(' ') << std::setw(3) << i << '@' << &o << ": " << o << std::endl;
     }
-    
-    std::cout << std::setfill(' ') << std::setw(3) << i << ": " << object_list[2] << std::endl;
   }
     
   return EXIT_SUCCESS;

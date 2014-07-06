@@ -37,11 +37,16 @@ namespace bullet {
     typedef std::unique_ptr<btDefaultCollisionConfiguration>     collision_config_type;
     typedef std::unique_ptr<btCollisionDispatcher>               collision_dispatcher_type;
     typedef std::unique_ptr<btSequentialImpulseConstraintSolver> constraint_solver_type;
-    typedef std::unique_ptr<btDiscreteDynamicsWorld>             world_type;
+    typedef std::unique_ptr<btDynamicsWorld>                     world_type;
     
     explicit world();
 
-    void simulate(float /* delta_t */, unsigned /* steps */ = 10);
+    /**
+     * delta_t < sub-steps * fixed delta_t (all in seconds!)
+     */
+    void simulate(float    /* delta_t       */,
+                  unsigned /* sub-steps     */ = 1,
+                  float    /* fixed delta_t */ = 1/60.0f);
     
     void add(btRigidBody*);
     void sub(btRigidBody*);
