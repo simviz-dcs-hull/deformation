@@ -12,9 +12,9 @@
 /*                                                                                                */
 /**************************************************************************************************/
 
-#if !defined(UKACHULLDCS_08961_PROTO_INL)
+#if !defined(UKACHULLDCS_DEFORMATION_PROTO_INL)
 
-#define UKACHULLDCS_08961_PROTO_INL
+#define UKACHULLDCS_DEFORMATION_PROTO_INL
 
 // includes, system
 
@@ -42,4 +42,4 @@ namespace ??? {
 #  undef UKACHULLDCS_USE_TRACE
 #endif
 
-#endif // #if !defined(UKACHULLDCS_08961_PROTO_INL)
+#endif // #if !defined(UKACHULLDCS_DEFORMATION_PROTO_INL)

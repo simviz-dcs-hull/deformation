@@ -12,9 +12,9 @@
 /*                                                                                                */
 /**************************************************************************************************/
 
-#if !defined(UKACHULLDCS_08961_PROTO_HLSL)
+#if !defined(UKACHULLDCS_DEFORMATION_PROTO_HLSL)
 
-#define UKACHULLDCS_08961_PROTO_HLSL
+#define UKACHULLDCS_DEFORMATION_PROTO_HLSL
 
 /* includes, system */
 
@@ -36,4 +36,4 @@
 
 /* techniques */
 
-#endif /* #if !defined(UKACHULLDCS_08961_PROTO_HLSL) */
+#endif /* #if !defined(UKACHULLDCS_DEFORMATION_PROTO_HLSL) */

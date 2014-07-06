@@ -12,9 +12,9 @@
 /*                                                                                                */
 /**************************************************************************************************/
 
-#if !defined(UKACHULLDCS_08961_PROTO_GLSL)
+#if !defined(UKACHULLDCS_DEFORMATION_PROTO_GLSL)
 
-#define UKACHULLDCS_08961_PROTO_GLSL
+#define UKACHULLDCS_DEFORMATION_PROTO_GLSL
 
 // #version 400 core
 // #extension GL_ARB_shading_language_include : require
@@ -42,4 +42,4 @@ main()
 {
 }
 
-#endif /* #if !defined(UKACHULLDCS_08961_PROTO_GLSL) */
+#endif /* #if !defined(UKACHULLDCS_DEFORMATION_PROTO_GLSL) */

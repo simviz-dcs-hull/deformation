@@ -12,9 +12,9 @@
 /*                                                                                                */
 /**************************************************************************************************/
 
-#if !defined(UKACHULLDCS_08961_PROTO_H)
+#if !defined(UKACHULLDCS_DEFORMATION_PROTO_H)
 
-#define UKACHULLDCS_08961_PROTO_H
+#define UKACHULLDCS_DEFORMATION_PROTO_H
 
 /* includes, system */
 
@@ -40,4 +40,4 @@ extern "C" {
 } /* extern "C" { */
 #endif
 
-#endif /* #if !defined(UKACHULLDCS_08961_PROTO_H) */
+#endif /* #if !defined(UKACHULLDCS_DEFORMATION_PROTO_H) */

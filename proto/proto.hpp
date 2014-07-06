@@ -12,9 +12,9 @@
 /*                                                                                                */
 /**************************************************************************************************/
 
-#if !defined(UKACHULLDCS_08961_PROTO_HPP)
+#if !defined(UKACHULLDCS_DEFORMATION_PROTO_HPP)
 
-#define UKACHULLDCS_08961_PROTO_HPP
+#define UKACHULLDCS_DEFORMATION_PROTO_HPP
 
 // includes, system
 
@@ -36,4 +36,4 @@ namespace ??? {
   
 } // namespace ??? {
 
-#endif // #if !defined(UKACHULLDCS_08961_PROTO_HPP)
+#endif // #if !defined(UKACHULLDCS_DEFORMATION_PROTO_HPP)
