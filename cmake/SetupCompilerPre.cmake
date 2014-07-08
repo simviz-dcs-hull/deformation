@@ -147,6 +147,7 @@ IF(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
 
   # avoid pulling all of windows.h
   ADD_DEFINITIONS("-DWIN32_LEAN_AND_MEAN")
+  ADD_DEFINITIONS("WIN32_EXTRA_LEAN")
   # http://stackoverflow.com/questions/5004858/stdmin-gives-error
   ADD_DEFINITIONS("-DNOMINMAX")
   # get rid of (stupid/obfuscated) security warnings
