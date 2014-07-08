@@ -40,7 +40,7 @@ int
 main()
 {
   bullet::world world;
-
+  
   std::array<bullet::object, 4> object_list = {
     {
       bullet::object(world,
@@ -69,7 +69,7 @@ main()
       std::cout << std::setfill(' ') << std::setw(3) << i << '@' << &o << ": " << o << std::endl;
     }
   }
-    
+
   return EXIT_SUCCESS;
 }
 
