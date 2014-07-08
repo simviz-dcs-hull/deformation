@@ -14,8 +14,9 @@
 
 // includes, system
 
-#include <GL/glut.h> // gl*
-#include <cstdlib>   // EXIT_SUCCESS
+#include <GL/glut.h>            // gl*
+#include <boost/filesystem.hpp> // boost::filesystem::path
+#include <cstdlib>              // EXIT_SUCCESS
 
 // includes, project
 
@@ -49,7 +50,7 @@ main(int argc, char* argv[])
   glutInitDisplayMode   (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowSize    (500, 500);
   glutInitWindowPosition(300, 200);
-  glutCreateWindow      ("Hello World!");
+  glutCreateWindow      (boost::filesystem::path(argv[0]).filename().string().c_str());
   glutDisplayFunc       (&display);
 
   glutMainLoop();
