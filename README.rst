@@ -23,7 +23,14 @@ Building and Installation
 Quick Setup
 -----------
 
-[to be written]
+::
+
+ # linux
+ $> cd <src-dir>
+ $> mkdir build && cd build
+ $> cmake ..
+ $> make -j4 help
+ $> make -j4 <app target> && ./bin/<app target>
 
 Overview
 --------
