@@ -12,8 +12,9 @@
 /*                                                                                                */
 /**************************************************************************************************/
 
-#if !defined(UKACHULLDCS_DEFORMATION_APPS_HELLOWORLD_OBJECT_HPP)
-#define UKACHULLDCS_DEFORMATION_APPS_HELLOWORLD_OBJECT_HPP
+#if !defined(UKACHULLDCS_DEFORMATION_APPS_GLUTANDBULLET_OBJECT_HPP)
+
+#define UKACHULLDCS_DEFORMATION_APPS_GLUTANDBULLET_OBJECT_HPP
 
 // includes, system
 
@@ -65,4 +66,4 @@ namespace bullet {
   
 } // namespace bullet {
 
-#endif // #if !defined(UKACHULLDCS_DEFORMATION_APPS_HELLOWORLD_OBJECT_HPP)
+#endif // #if !defined(UKACHULLDCS_DEFORMATION_APPS_GLUTANDBULLET_OBJECT_HPP)
