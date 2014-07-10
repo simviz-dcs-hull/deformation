@@ -6,14 +6,13 @@
 /*                                                                                                */
 /**************************************************************************************************/
 /*                                                                                                */
-/*  module     :  apps/01_hello_world/object.hpp                                                  */
+/*  module     :  apps/03_glutandbullet/world.hpp                                                 */
 /*  project    :                                                                                  */
 /*  description:                                                                                  */
 /*                                                                                                */
 /**************************************************************************************************/
 
 #if !defined(UKACHULLDCS_DEFORMATION_APPS_HELLOWORLD_OBJECT_HPP)
-
 #define UKACHULLDCS_DEFORMATION_APPS_HELLOWORLD_OBJECT_HPP
 
 // includes, system
