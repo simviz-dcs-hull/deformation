@@ -31,12 +31,38 @@ namespace {
   // variables, internal
   
   // functions, internal
-
+  
+  void
+  keyboard(unsigned char key, int x, int y) 
+  {
+    if (key == 'q') 
+    {
+      exit(EXIT_SUCCESS);
+    }
+  }
+  void 
+  reshape(int w, int h) 
+  {
+    float ratio = 1.0 * w/h;
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glViewport(0,0,w,h);
+    gluPerspective(45,ratio,1,1000);
+    glMatrixMode(GL_MODELVIEW);
+  }
+  void
+  idle()
+  {
+    //something
+    glutPostRedisplay();
+  }
   void
   display()
   {
-    glClearColor(0.8, 0.8, 0.8, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    
 
     glutSwapBuffers();
   }
@@ -53,6 +79,9 @@ main(int argc, char* argv[])
   glutInitWindowPosition(300, 200);
   glutCreateWindow      (boost::filesystem::path(argv[0]).filename().string().c_str());
   glutDisplayFunc       (&display);
+  glutIdleFunc          (&idle);
+  glutReshapeFunc       (&reshape);
+  glutKeyboardFunc      (&keyboard);
 
   glutMainLoop();
 
