@@ -19,11 +19,14 @@ SET(SRC)
 LIST(APPEND SRC "main.cpp")
 LIST(APPEND SRC "world.cpp")
 LIST(APPEND SRC "object.cpp")
+LIST(APPEND SRC "BasicDemo.cpp")
+LIST(APPEND SRC "GLDebugDrawer.cpp")
 
 LIST(APPEND SRC "GlutStuff.cpp")
 LIST(APPEND SRC "DemoApplication.cpp")
 LIST(APPEND SRC "GL_ShapeDrawer.cpp")
 LIST(APPEND SRC "GLDebugFont.cpp")
+LIST(APPEND SRC "GlutDemoApplication.cpp")
 
 
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
