@@ -674,6 +674,77 @@ btVector3       DemoApplication::getRayTo(int x,int y)
 
 btScalar mousePickClamping = 30.f;
 
+void DemoApplication::pickObject(const btVector3& pickPos, const btCollisionObject* hitObj)
+{
+        
+        btRigidBody* body = (btRigidBody*)btRigidBody::upcast(hitObj);
+        if (body)
+        {
+                //other exclusions?
+                if (!(body->isStaticObject() || body->isKinematicObject()))
+                {
+                        pickedBody = body;
+                        pickedBody->setActivationState(DISABLE_DEACTIVATION);
+
+
+                        //printf("pickPos=%f,%f,%f\n",pickPos.getX(),pickPos.getY(),pickPos.getZ());
+
+
+                        btVector3 localPivot = body->getCenterOfMassTransform().inverse() * pickPos;
+
+                        if ((m_modifierKeys& BT_ACTIVE_SHIFT)!=0)
+                        {
+                                btTransform tr;
+                                tr.setIdentity();
+                                tr.setOrigin(localPivot);
+                                btGeneric6DofConstraint* dof6 = new btGeneric6DofConstraint(*body, tr,false);
+                                dof6->setLinearLowerLimit(btVector3(0,0,0));
+                                dof6->setLinearUpperLimit(btVector3(0,0,0));
+                                dof6->setAngularLowerLimit(btVector3(0,0,0));
+                                dof6->setAngularUpperLimit(btVector3(0,0,0));
+
+                                m_dynamicsWorld->addConstraint(dof6,true);
+                                m_pickConstraint = dof6;
+
+                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,0);
+                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,1);
+                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,2);
+                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,3);
+                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,4);
+                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,5);
+
+                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,0);
+                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,1);
+                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,2);
+                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,3);
+                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,4);
+                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,5);
+                        } else
+                        {
+                                btPoint2PointConstraint* p2p = new btPoint2PointConstraint(*body,localPivot);
+                                m_dynamicsWorld->addConstraint(p2p,true);
+                                m_pickConstraint = p2p;
+                                p2p->m_setting.m_impulseClamp = mousePickClamping;
+                                //very weak constraint for picking
+                                p2p->m_setting.m_tau = 0.001f;
+        /*
+                                p2p->setParam(BT_CONSTRAINT_CFM,0.8,0);
+                                p2p->setParam(BT_CONSTRAINT_CFM,0.8,1);
+                                p2p->setParam(BT_CONSTRAINT_CFM,0.8,2);
+                                p2p->setParam(BT_CONSTRAINT_ERP,0.1,0);
+                                p2p->setParam(BT_CONSTRAINT_ERP,0.1,1);
+                                p2p->setParam(BT_CONSTRAINT_ERP,0.1,2);
+                                */
+                                                                        
+
+                        }
+                                        
+                        //save mouse position for dragging
+                                        
+                }
+        }
+                                                
+}
 
 void DemoApplication::mouseFunc(int button, int state, int x, int y)
 {
@@ -800,77 +871,7 @@ void DemoApplication::mouseFunc(int button, int state, int x, int y)
 
 }
 
-void DemoApplication::pickObject(const btVector3& pickPos, const btCollisionObject* hitObj)
-{
-        
-        btRigidBody* body = (btRigidBody*)btRigidBody::upcast(hitObj);
-        if (body)
-        {
-                //other exclusions?
-                if (!(body->isStaticObject() || body->isKinematicObject()))
-                {
-                        pickedBody = body;
-                        pickedBody->setActivationState(DISABLE_DEACTIVATION);
 
-
-                        //printf("pickPos=%f,%f,%f\n",pickPos.getX(),pickPos.getY(),pickPos.getZ());
-
-
-                        btVector3 localPivot = body->getCenterOfMassTransform().inverse() * pickPos;
-
-                        if ((m_modifierKeys& BT_ACTIVE_SHIFT)!=0)
-                        {
-                                btTransform tr;
-                                tr.setIdentity();
-                                tr.setOrigin(localPivot);
-                                btGeneric6DofConstraint* dof6 = new btGeneric6DofConstraint(*body, tr,false);
-                                dof6->setLinearLowerLimit(btVector3(0,0,0));
-                                dof6->setLinearUpperLimit(btVector3(0,0,0));
-                                dof6->setAngularLowerLimit(btVector3(0,0,0));
-                                dof6->setAngularUpperLimit(btVector3(0,0,0));
-
-                                m_dynamicsWorld->addConstraint(dof6,true);
-                                m_pickConstraint = dof6;
-
-                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,0);
-                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,1);
-                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,2);
-                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,3);
-                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,4);
-                                dof6->setParam(BT_CONSTRAINT_STOP_CFM,0.8,5);
-
-                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,0);
-                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,1);
-                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,2);
-                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,3);
-                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,4);
-                                dof6->setParam(BT_CONSTRAINT_STOP_ERP,0.1,5);
-                        } else
-                        {
-                                btPoint2PointConstraint* p2p = new btPoint2PointConstraint(*body,localPivot);
-                                m_dynamicsWorld->addConstraint(p2p,true);
-                                m_pickConstraint = p2p;
-                                p2p->m_setting.m_impulseClamp = mousePickClamping;
-                                //very weak constraint for picking
-                                p2p->m_setting.m_tau = 0.001f;
-        /*
-                                p2p->setParam(BT_CONSTRAINT_CFM,0.8,0);
-                                p2p->setParam(BT_CONSTRAINT_CFM,0.8,1);
-                                p2p->setParam(BT_CONSTRAINT_CFM,0.8,2);
-                                p2p->setParam(BT_CONSTRAINT_ERP,0.1,0);
-                                p2p->setParam(BT_CONSTRAINT_ERP,0.1,1);
-                                p2p->setParam(BT_CONSTRAINT_ERP,0.1,2);
-                                */
-                                                                        
-
-                        }
-                                        
-                        //save mouse position for dragging
-                                        
-                }
-        }
-                                                
-}
 
 void DemoApplication::removePickingConstraint()
 {
@@ -1404,27 +1405,3 @@ void    DemoApplication::clientResetScene()
         }
 
 }
-Hide details
-Change log
-r2701 by erwin.coumans on Oct 23, 2013   Diff
-Allow the ForkLiftDemo to toggle between
-MLCP and SI solver, using F6 key.
-Apply patch for CMake config, see  Issue
-754  ( Issue 753 )
-Fix a few issue with the MLCP solver:
-allow split impulse, and fix offset in
-friction dependencies
-Go to: 	
-Project members, sign in to write a code review
-Older revisions
- r2683 by erwin.coumans on Oct 6, 2013   Diff 
- r2682 by erwin.coumans on Oct 4, 2013   Diff 
- r2642 by erwin.coumans on May 8, 2013   Diff 
-All revisions of this file
-File info
-Size: 35239 bytes, 1405 lines
-View raw file
-File properties
-svn:eol-style
-native
-
