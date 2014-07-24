@@ -18,6 +18,7 @@ subject to the following restrictions:
 #define ARRAY_SIZE_X 5
 #define ARRAY_SIZE_Y 5
 #define ARRAY_SIZE_Z 5
+#define PYRAMID_HEIGHT 5
 
 //maximum number of objects (and allow user to shoot additional boxes)
 #define MAX_PROXIES (ARRAY_SIZE_X*ARRAY_SIZE_Y*ARRAY_SIZE_Z + 1024)
@@ -27,6 +28,7 @@ subject to the following restrictions:
 #define START_POS_X -5
 #define START_POS_Y -5
 #define START_POS_Z -3
+
 
 #include "BasicDemo.h"
 #include "GlutStuff.h"
@@ -105,7 +107,7 @@ void	BasicDemo::initPhysics()
 	m_dynamicsWorld = new btDiscreteDynamicsWorld(m_dispatcher,m_broadphase,m_solver,m_collisionConfiguration);
 	m_dynamicsWorld->setDebugDrawer(&gDebugDraw);
 
-	m_dynamicsWorld->setGravity(btVector3(0,-100,0));
+	m_dynamicsWorld->setGravity(btVector3(0,-9.81,0));
 
 	///create a few basic rigid bodies
 	btBoxShape* groundShape = new btBoxShape(btVector3(btScalar(50.),btScalar(50.),btScalar(50.)));
@@ -151,7 +153,7 @@ void	BasicDemo::initPhysics()
 		btTransform startTransform;
 		startTransform.setIdentity();
 
-		btScalar	mass(1.f);
+		btScalar	mass(50.f);
 
 		//rigidbody is dynamic if and only if mass is non zero, otherwise static
 		bool isDynamic = (mass != 0.f);
@@ -160,10 +162,16 @@ void	BasicDemo::initPhysics()
 		if (isDynamic)
 			colShape->calculateLocalInertia(mass,localInertia);
 
-		float start_x = START_POS_X - ARRAY_SIZE_X/2;
+		float start_x = START_POS_X - ((1+(PYRAMID_HEIGHT-1)*2)/2);
 		float start_y = START_POS_Y;
-		float start_z = START_POS_Z - ARRAY_SIZE_Z/2;
-
+		float start_z = START_POS_Z - ((1+(PYRAMID_HEIGHT-1)*2)/2);
+    
+    for (int i = PYRAMID_HEIGHT; i > 0; i--) 
+    {
+      
+    }
+  
+    
 		for (int k=0;k<ARRAY_SIZE_Y;k++)
 		{
 			for (int i=0;i<ARRAY_SIZE_X;i++)
@@ -186,6 +194,45 @@ void	BasicDemo::initPhysics()
 				}
 			}
 		}
+    start_y += (ARRAY_SIZE_Y * 2.0);
+//    float zMove = 0.0;
+//    for (int i = PYRAMID_HEIGHT; i > 0; i--) 
+//    {
+//      int squareValue = 1+(i-1)*2;
+//      for (int j = 0; j < (squareValue*squareValue); j++) 
+//      {
+//        startTransform.setOrigin(SCALING*btVector3(
+//                  btScalar(start_x + (j%squareValue)*2.0),
+//                  btScalar(start_y + 6 + (PYRAMID_HEIGHT - i) * 6.0),
+//                  btScalar(start_z + zMove)));
+
+//        if (j > 0) 
+//        {
+//          if ((j+1)%squareValue == 0) 
+//          {
+//            zMove += 2.0;
+//          }
+//        }
+
+
+
+
+
+//        btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+//				btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
+//				btRigidBody* body = new btRigidBody(rbInfo);
+
+
+//				m_dynamicsWorld->addRigidBody(body);
+//      }
+//      zMove = 0.0;
+//      start_x += 2.0;
+//      start_z += 2.0;
+//      start_y += 1.0;
+//      
+//    }
+
+
 	}
 
 

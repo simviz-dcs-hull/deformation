@@ -17,8 +17,6 @@ SET(APP "03_gluttest")
 SET(SRC)
 
 LIST(APPEND SRC "main.cpp")
-LIST(APPEND SRC "world.cpp")
-LIST(APPEND SRC "object.cpp")
 LIST(APPEND SRC "BasicDemo.cpp")
 LIST(APPEND SRC "GLDebugDrawer.cpp")
 

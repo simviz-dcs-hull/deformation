@@ -555,8 +555,9 @@ void    DemoApplication::setShootBoxShape ()
         if (!m_shootBoxShape)
         {
                 btBoxShape* box = new btBoxShape(btVector3(0.5,0.5,0.5));
+                btSphereShape* sphere = new btSphereShape(1.0);
       //  box->initializePolyhedralFeatures();
-                m_shootBoxShape = box;
+                m_shootBoxShape =sphere;
         }
 }
 
@@ -565,7 +566,7 @@ void    DemoApplication::shootBox(const btVector3& destination)
 
         if (m_dynamicsWorld)
         {
-                float mass = 1.f;
+                float mass = 50.f;
                 btTransform startTransform;
                 startTransform.setIdentity();
                 btVector3 camPos = getCameraPosition();
