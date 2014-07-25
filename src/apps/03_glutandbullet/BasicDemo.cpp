@@ -18,7 +18,7 @@ subject to the following restrictions:
 #define ARRAY_SIZE_X 5
 #define ARRAY_SIZE_Y 5
 #define ARRAY_SIZE_Z 5
-#define PYRAMID_HEIGHT 5
+#define PYRAMID_HEIGHT 12
 
 //maximum number of objects (and allow user to shoot additional boxes)
 #define MAX_PROXIES (ARRAY_SIZE_X*ARRAY_SIZE_Y*ARRAY_SIZE_Z + 1024)
@@ -107,7 +107,7 @@ void	BasicDemo::initPhysics()
 	m_dynamicsWorld = new btDiscreteDynamicsWorld(m_dispatcher,m_broadphase,m_solver,m_collisionConfiguration);
 	m_dynamicsWorld->setDebugDrawer(&gDebugDraw);
 
-	m_dynamicsWorld->setGravity(btVector3(0,-9.81,0));
+	m_dynamicsWorld->setGravity(btVector3(0,-98.0,0));
 
 	///create a few basic rigid bodies
 	btBoxShape* groundShape = new btBoxShape(btVector3(btScalar(50.),btScalar(50.),btScalar(50.)));
@@ -153,7 +153,7 @@ void	BasicDemo::initPhysics()
 		btTransform startTransform;
 		startTransform.setIdentity();
 
-		btScalar	mass(50.f);
+		btScalar	mass(1.f);
 
 		//rigidbody is dynamic if and only if mass is non zero, otherwise static
 		bool isDynamic = (mass != 0.f);
@@ -171,66 +171,66 @@ void	BasicDemo::initPhysics()
       
     }
   
-    
-		for (int k=0;k<ARRAY_SIZE_Y;k++)
-		{
-			for (int i=0;i<ARRAY_SIZE_X;i++)
-			{
-				for(int j = 0;j<ARRAY_SIZE_Z;j++)
-				{
-					startTransform.setOrigin(SCALING*btVector3(
-										btScalar(2.0*i + start_x),
-										btScalar(6+2.0*k + start_y),
-										btScalar(2.0*j + start_z)));
+//    
+//		for (int k=0;k<ARRAY_SIZE_Y;k++)
+//		{
+//			for (int i=0;i<ARRAY_SIZE_X;i++)
+//			{
+//				for(int j = 0;j<ARRAY_SIZE_Z;j++)
+//				{
+//					startTransform.setOrigin(SCALING*btVector3(
+//										btScalar(2.0*i + start_x),
+//										btScalar(6+2.0*k + start_y),
+//										btScalar(2.0*j + start_z)));
 
 
-					//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-					btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-					btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
-					btRigidBody* body = new btRigidBody(rbInfo);
+//					//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+//					btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+//					btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
+//					btRigidBody* body = new btRigidBody(rbInfo);
 
 
-					m_dynamicsWorld->addRigidBody(body);
-				}
-			}
-		}
-    start_y += (ARRAY_SIZE_Y * 2.0);
-//    float zMove = 0.0;
-//    for (int i = PYRAMID_HEIGHT; i > 0; i--) 
-//    {
-//      int squareValue = 1+(i-1)*2;
-//      for (int j = 0; j < (squareValue*squareValue); j++) 
-//      {
-//        startTransform.setOrigin(SCALING*btVector3(
-//                  btScalar(start_x + (j%squareValue)*2.0),
-//                  btScalar(start_y + 6 + (PYRAMID_HEIGHT - i) * 6.0),
-//                  btScalar(start_z + zMove)));
+//					m_dynamicsWorld->addRigidBody(body);
+//				}
+//			}
+//		}
+//    start_y += (ARRAY_SIZE_Y * 2.0);
+    float zMove = 0.0;
+    for (int i = PYRAMID_HEIGHT; i > 0; i--) 
+    {
+      int squareValue = 1+(i-1)*2;
+      for (int j = 0; j < (squareValue*squareValue); j++) 
+      {
+        startTransform.setOrigin(SCALING*btVector3(
+                  btScalar(start_x + (j%squareValue)*2.0),
+                  btScalar(start_y + 6 + (PYRAMID_HEIGHT - i) * 1.5),
+                  btScalar(start_z + zMove)));
 
-//        if (j > 0) 
-//        {
-//          if ((j+1)%squareValue == 0) 
-//          {
-//            zMove += 2.0;
-//          }
-//        }
-
-
+        if (j > 0) 
+        {
+          if ((j+1)%squareValue == 0) 
+          {
+            zMove += 2.0;
+          }
+        }
 
 
 
-//        btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-//				btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
-//				btRigidBody* body = new btRigidBody(rbInfo);
 
 
-//				m_dynamicsWorld->addRigidBody(body);
-//      }
-//      zMove = 0.0;
-//      start_x += 2.0;
-//      start_z += 2.0;
-//      start_y += 1.0;
-//      
-//    }
+        btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+				btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,myMotionState,colShape,localInertia);
+				btRigidBody* body = new btRigidBody(rbInfo);
+
+
+				m_dynamicsWorld->addRigidBody(body);
+      }
+      zMove = 0.0;
+      start_x += 2.0;
+      start_z += 2.0;
+      start_y += 1.0;
+      
+    }
 
 
 	}
